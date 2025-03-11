@@ -18,7 +18,8 @@ function division(num1, num2) {
 
 let firstNumber = '';
 let operator = null;
-// let initialOperator = null;
+let initialOperator = null;
+let nextOperator = null;
 let secondNumber = '';
 let digitButton = document.querySelectorAll('.number');
 let inputDisplay = document.querySelector('input');
@@ -53,6 +54,7 @@ function populateDigit() {
                     button.classList.remove("flash-effect");
                 }, 300);
                 firstNumber += button.textContent;
+                console.log(`firstNumber: ${firstNumber}`);
                 inputDisplay.value = firstNumber;
             }
             else {
@@ -63,29 +65,33 @@ function populateDigit() {
                     button.classList.remove("flash-effect");
                 }, 300);
                 secondNumber += button.textContent;
+                console.log(`secondNumber: ${secondNumber}`);
                 inputDisplay.value = secondNumber;
             }
         })
     })
     operatorButton.forEach(button => {
         button.addEventListener('click', () => {
-            if (firstNumber !== '') {
+            operator = button.textContent;
+            if (firstNumber !== '' && secondNumber === '') {
                 operatorButton.forEach(btn => {
                     btn.classList.remove('active_operator');
+                    initialOperator = operator;
                 })
-                operator = button.textContent;
+
+                console.log('initialOperator: ' + initialOperator)
                 button.classList.add('active_operator');
             }
-        //     else if (secondNumber !== '') {
-        //         initialOperator = operator;
-        //         console.log(initialOperator);
-        //         result = operate(parseFloat(firstNumber),
-        //         parseFloat(secondNumber), initialOperator);
-        //         inputDisplay.value = Math.round(result * 10)/10;
-        //         firstNumber = result.toString();
-        //         secondNumber = '';
-        //         operator = null;
-        //     }
+            else if (secondNumber !== '' && firstNumber !== '' && initialOperator !== null) {
+                nextOperator = operator;
+                console.log('nextOperator: ' + nextOperator);
+                result = operate(parseFloat(firstNumber),
+                parseFloat(secondNumber), initialOperator);
+                inputDisplay.value = Math.round(result * 10)/10;
+                firstNumber = result.toString();
+                initialOperator = nextOperator;
+                secondNumber = '';
+            }
         })
     })
     dot.addEventListener('click', () => {
