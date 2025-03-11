@@ -95,3 +95,18 @@ button {
     font-size: 20px;
     font-weight: bold;
 }
+
+.active_operator {
+    background-color: white;
+    color: orange;
+}
+
+@keyframes flash {
+    0% { background-color: orange; color: white; }
+    50% { background-color: white; color: orange; }
+    100% { background-color: orange; color: white; }
+}
+
+.flash-effect {
+    animation: flash 0.3s ease-in-out;
+}
