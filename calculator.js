@@ -14,6 +14,10 @@ function multiply(num1, num2) {
 function division(num1, num2) {
     return num2 !== '0' ? num1 / num2 : 'Error';
 }
+// Remainder
+function getRemainder(num1, num2) {
+    return num2 !== 0 ? num1 % num2 : 'Error';
+}
 
 
 let firstNumber = '';
@@ -35,6 +39,7 @@ function operate(num1, num2, operator) {
         case 'X': return multiply(num1, num2);
         case '+': return add(num1, num2);
         case '-': return subtract(num1, num2);
+        case '%': return getRemainder(num1, num2);
         default: return num2;
     }
 }
