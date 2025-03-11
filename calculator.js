@@ -19,7 +19,7 @@ function getRemainder(num1, num2) {
     return num2 !== 0 ? num1 % num2 : 'Error';
 }
 
-
+//Global variables declaration and initialization
 let firstNumber = '';
 let operator = null;
 let initialOperator = null;
@@ -33,6 +33,7 @@ let clear = document.querySelector('.clear');
 let equal = document.querySelector('.equal');
 let result = null;
 
+// Function that does calculations base on the operator passed in.
 function operate(num1, num2, operator) {
     switch(operator) {
         case "÷": return division(num1, num2);
@@ -44,8 +45,11 @@ function operate(num1, num2, operator) {
     }
 }
 
-//function that display the button user clicked
+/*function that display the button user clicked
+ without displaying the operator button and also
+  display the result of every calculations*/
 function populateDigit() {
+    // Button clicked to get the digit displayed on the screen.
     digitButton.forEach(button =>  {
         button.addEventListener('click', () => {
             operatorButton.forEach(button => {
@@ -75,6 +79,8 @@ function populateDigit() {
             }
         })
     })
+
+    // Button clicked to determine the operator button to pass in for calculation.
     operatorButton.forEach(button => {
         button.addEventListener('click', () => {
             operator = button.textContent;
@@ -87,7 +93,12 @@ function populateDigit() {
                 console.log('initialOperator: ' + initialOperator)
                 button.classList.add('active_operator');
             }
+
+            /* Other option to evaluate the result for complex calculation
+             if their is an expression already but 
+             the user click another operator instead of equal*/
             else if (secondNumber !== '' && firstNumber !== '' && initialOperator !== null) {
+                button.classList.add('active_operator');
                 nextOperator = operator;
                 console.log('nextOperator: ' + nextOperator);
                 result = operate(parseFloat(firstNumber),
@@ -99,12 +110,16 @@ function populateDigit() {
             }
         })
     })
+
+    // Button clicked to show decimal point after the number for decimal calculation
     dot.addEventListener('click', () => {
         if (!firstNumber.includes('.')) {
             firstNumber += dot.textContent;
             inputDisplay.value = firstNumber;
         }
     })
+
+    // Button clicked to evaluate the result of the expression e.g 2 + 3 = 5
     equal.addEventListener('click', () => {
         if (firstNumber !== '' && secondNumber !== '' && operator !== null) {
             result = operate(parseFloat(firstNumber),
@@ -123,6 +138,8 @@ function populateDigit() {
             }, 300);
         }
     })
+
+    // Button clicked for clearing all expression to allow the user to start a new calculation.
     clear.addEventListener('click', () => {
         operatorButton.forEach(button => {
             button.classList.remove('active_operator');
