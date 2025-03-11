@@ -21,13 +21,13 @@ main {
     background-color: black;
     padding: 10px 20px 10px;
     min-width: 300px;
-    max-width: 350px;
-    width: 60%;
-    height: 450px;
+    max-width: 400px;
+    width: 75%;
+    /* height: 90vh; */
 }
 
 main .input_container {
-    width: 100%;
+    width: 90%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -109,4 +109,14 @@ button {
 
 .flash-effect {
     animation: flash 0.3s ease-in-out;
+}
+
+@media(min-width: 580px) {
+    button {
+        height: 4em;
+        /* width: 100%; */
+    }
+    #zero {
+        border-radius: 50px;
+    }
 }
