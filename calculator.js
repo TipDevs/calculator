@@ -18,13 +18,15 @@ function division(num1, num2) {
 
 let firstNumber = '';
 let operator = null;
+// let initialOperator = null;
 let secondNumber = '';
 let digitButton = document.querySelectorAll('.number');
 let inputDisplay = document.querySelector('input');
 let operatorButton = document.querySelectorAll('.operator');
 let dot = document.querySelector('.dot');
 let clear = document.querySelector('.clear');
-let equal = document.querySelector('.equal')
+let equal = document.querySelector('.equal');
+let result = null;
 
 function operate(num1, num2, operator) {
     switch(operator) {
@@ -40,11 +42,26 @@ function operate(num1, num2, operator) {
 function populateDigit() {
     digitButton.forEach(button =>  {
         button.addEventListener('click', () => {
+            operatorButton.forEach(button => {
+                button.classList.remove('active_operator');
+            })
             if (operator === null) {
+                // add flash effect to the digit buttons
+                button.classList.add("flash-effect");
+
+                setTimeout(() => {
+                    button.classList.remove("flash-effect");
+                }, 300);
                 firstNumber += button.textContent;
                 inputDisplay.value = firstNumber;
             }
             else {
+                // add flash effect to the digit buttons
+                button.classList.add("flash-effect");
+
+                setTimeout(() => {
+                    button.classList.remove("flash-effect");
+                }, 300);
                 secondNumber += button.textContent;
                 inputDisplay.value = secondNumber;
             }
@@ -53,9 +70,22 @@ function populateDigit() {
     operatorButton.forEach(button => {
         button.addEventListener('click', () => {
             if (firstNumber !== '') {
+                operatorButton.forEach(btn => {
+                    btn.classList.remove('active_operator');
+                })
                 operator = button.textContent;
-                console.log(operator);
+                button.classList.add('active_operator');
             }
+        //     else if (secondNumber !== '') {
+        //         initialOperator = operator;
+        //         console.log(initialOperator);
+        //         result = operate(parseFloat(firstNumber),
+        //         parseFloat(secondNumber), initialOperator);
+        //         inputDisplay.value = Math.round(result * 10)/10;
+        //         firstNumber = result.toString();
+        //         secondNumber = '';
+        //         operator = null;
+        //     }
         })
     })
     dot.addEventListener('click', () => {
@@ -66,15 +96,26 @@ function populateDigit() {
     })
     equal.addEventListener('click', () => {
         if (firstNumber !== '' && secondNumber !== '' && operator !== null) {
-            let result = operate(parseFloat(firstNumber),
+            result = operate(parseFloat(firstNumber),
              parseFloat(secondNumber), operator);
              inputDisplay.value = Math.round(result * 10)/10;
              firstNumber = result.toString();
              secondNumber = '';
              operator = null;
+
+            //  add flash effect to equal button
+
+            equal.classList.add("flash-effect");
+
+            setTimeout(() => {
+                equal.classList.remove("flash-effect");
+            }, 300);
         }
     })
     clear.addEventListener('click', () => {
+        operatorButton.forEach(button => {
+            button.classList.remove('active_operator');
+        })
         firstNumber = "";
         secondNumber = '';
         result = '';
